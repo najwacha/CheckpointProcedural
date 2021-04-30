@@ -1,0 +1,87 @@
+//--------------Read size of Vectors-------------------
+FUNCTION read_n() : INTEGER
+VAR
+    n:INTEGER;
+BEGIN
+    REPEAT
+ Write('Give your size of vectors'); //msg to screen
+ Read (n);  //Read the size of vectors
+UNTIL (n>0 OR n<50) //Repeat read n until value of n>0 and value of n<50
+    RETURN n ;
+END
+
+//--------------Write Vectors---------------------------
+PROCEDURE write_V(VAR V1,V2: Array OF INTEGER)
+VAR
+    i,j:INTEGER;
+BEGIN
+    FOR i FROM 0 TO n-1 STEP 1  DO
+    Read(vect_A[i]);
+    END_FOR
+    FOR j FROM 0 TO n-1 STEP 1  DO
+    Read(vect_B[j]);
+    END_FOR
+END
+
+//--------------------Procedure dotProduct--------------------
+PROCEDURE dotProduct(V1,V2: Array OF INTEGER, VAR ps:INTEGER)  // V1=[a1,b1,c1] V2=[a2,b2,c2]
+VAR
+    i,ps:INTEGER:=0;
+BEGIN
+
+    FOR i FROM 0 TO n-1 STEP 1  DO
+        ps := ps+ V1[i] * V2[i];   // dot product = a1 * b1 + a2 * b2 + a3 * b3
+    END_FOR
+
+END
+
+//-------------Function dotProduct---------------
+FUNCTION dotProduct(V1,V2: Array OF INTEGER) : INTEGER // V1=[a1,b1,c1] V2=[a2,b2,c2]
+VAR
+VAR
+    i,ps:INTEGER:=0;
+BEGIN
+     FOR i FROM 0 TO n-1 STEP 1  DO
+        ps := ps+ V1[i] * V2[i];   // dot product = a1 * b1 + a2 * b2 + a3 * b3
+    END_FOR
+    RETURN ps ; //return value
+END
+
+ALGORITHM dotProductOrthogonal
+
+VAR
+    vect_A : ARRAY_OF INTEGER[50]; //exp: vect_A := { 3, -5, 4 };
+    vect_B : ARRAY_OF INTEGER[50]; //exp: vect_B := { 2, 6, 5 };
+    n,k,numberOfVectors: INTEGER;
+    
+BEGIN
+
+
+ //--------Read numberOfVectors-------
+    Write('Give your number of vectors'); //msg to screen
+    Read(numberOfVectors);
+
+
+   WHILE (k<numberOfVectors) DO
+
+//Test n
+ n:= read_n();
+
+//-------Read Vectors-------
+ write_V(vect_A,vect_B);
+
+//------Call procedure dotProduct-----
+ Write('The dotProduct of the two vectors is ', dotProduct(vect_A,vect_B,ps));
+
+//-----Call Function dotProduct-------
+    IF ( dotProduct(vect_A,vect_B) = 0 ) THEN   // a1 * b1 + a2 * b2 + a3 * b3 =0 
+     Write('Two Vectors',vect_A ,'and', vect_B , 'are orthogonal'); 
+    ELSE
+     Write('Two Vectors are not orthogonal');
+    END_IF
+
+    k=k+1;
+    
+    END_WHILE 
+
+END
